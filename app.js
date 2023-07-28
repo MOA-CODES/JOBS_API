@@ -1,18 +1,20 @@
 //require
 require ('dotenv').config()
 require ('express-async-errors')
-
+const connectDB = require('./db/connect')
 const express = require('express')
 const app = express()
 
 const notfound = require('./middleware/not-found')
 const errorHandler = require('./middleware/error-handler')
-const connectDB = require('./db/connect')
 
 //app.use, functions, and variablles assigning
+app.use(express.json())
+
 app.use('/', (req, res) =>{
     res.send('for now')
 })
+
 app.use(notfound)
 app.use(errorHandler)
 
