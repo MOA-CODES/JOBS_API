@@ -28,9 +28,16 @@ const login = async (req, res) => {
     res.status(StatusCodes.OK).json({user:{name:user.name},token})
 }
 
+//for me the developer they actually shouldn't exist
 const deleteAll = async (req, res) => {
     await User.deleteMany().then(()=>console.log('All initial  data has been deleted..'))
     res.status(StatusCodes.OK).json({msg: 'All initial  data has been deleted..'})
 }
+const getAllUsers = async (req, res) => {
+    const all = await User.find({})
+    res.status(StatusCodes.OK).json({all})
+}
 
-module.exports = {register, login, deleteAll}
+
+
+module.exports = {register, login, deleteAll, getAllUsers}
