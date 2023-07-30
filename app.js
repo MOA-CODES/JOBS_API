@@ -1,9 +1,11 @@
 //require
 require ('dotenv').config()
 require ('express-async-errors')
-const connectDB = require('./db/connect')
 const express = require('express')
 const app = express()
+
+const auth = require('./middleware/authentication')
+const connectDB = require('./db/connect')
 
 const auth_R = require('./routes/auth_R')
 const jobs_R = require('./routes/jobs_R')
@@ -17,7 +19,7 @@ const errorHandler = require('./middleware/error-handler')
 app.use(express.json())
 
 app.use('/api/v1/auth',auth_R )
-app.use('/api/v1/jobs',jobs_R )
+app.use('/api/v1/jobs', auth, jobs_R ) //protecting all job routes with authentication middleware
 
 
 app.use(notfound)
